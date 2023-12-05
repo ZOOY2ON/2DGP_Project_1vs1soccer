@@ -44,12 +44,8 @@ class GameTime:
                 if self.bottom == 1:
                     game_world.clear()
 
-                    from game_ground import GameGround
-                    gameground = GameGround()
-                    game_world.add_object(gameground, 1)
+                    from game_countdown import GameCountDown
+                    gamecountdown = GameCountDown()
+                    game_world.add_object(gamecountdown, 0)
                 else:
                     pass
-
-                #from game_character import GameCharacter
-                #gamecharacter = GameCharacter()
-                #game_world.add_object(gamecharacter, 0)
