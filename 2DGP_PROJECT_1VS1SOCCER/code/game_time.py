@@ -7,6 +7,11 @@ Screen_x, Screen_y = 1920, 1080
 # [game_time] 게임 시간 설정 화면
 class GameTime:
     def __init__(self):
+
+        from game_mouse import GameMouse
+        gamemouse = GameMouse()
+        game_world.add_object(gamemouse, 2)
+
         self.background = load_image('GAME_BACKGROUND/RuleSetting.png')
         self.game_timer = load_image('GAME_RESOURCE/Timer_minute.png')
 

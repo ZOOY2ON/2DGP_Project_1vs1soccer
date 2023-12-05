@@ -7,6 +7,11 @@ Screen_x, Screen_y = 1920, 1080
 # [game_start] 캐릭터를 선택합니다.
 class GameStart:
     def __init__(self):
+
+        from game_mouse import GameMouse
+        gamemouse = GameMouse()
+        game_world.add_object(gamemouse, 2)
+
         self.background = load_image('GAME_BACKGROUND/CharacterSelect.png')
         self.x, self.y = Screen_x // 2, Screen_y // 2
         self.character_01 = load_image('GAME_CHARACTER/CharacterSheet.png')

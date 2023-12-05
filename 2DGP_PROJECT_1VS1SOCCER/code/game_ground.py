@@ -8,6 +8,10 @@ Screen_x, Screen_y = 1920, 1080
 class GameGround:
     def __init__(self):
 
+        from game_mouse import GameMouse
+        gamemouse = GameMouse()
+        game_world.add_object(gamemouse, 2)
+
         from game_character import GameCharacter
         character = GameCharacter()
         game_world.add_object(character, 1)

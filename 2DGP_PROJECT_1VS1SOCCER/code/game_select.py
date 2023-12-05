@@ -9,6 +9,11 @@ Screen_x, Screen_y = 1920, 1080
 # [game_select] 게임 방법 확인 또는 게임 시작 선택
 class GameSelect:
     def __init__(self):
+
+        from game_mouse import GameMouse
+        gamemouse = GameMouse()
+        game_world.add_object(gamemouse, 2)
+
         self.frame = 0
         self.image = load_image('GAME_BACKGROUND/MainScreen.png')
 
