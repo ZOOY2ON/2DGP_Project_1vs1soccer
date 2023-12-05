@@ -4,7 +4,7 @@ import game_world
 
 Screen_x, Screen_y = 1920, 1080
 
-
+# [game_start] 캐릭터를 선택합니다.
 class GameStart:
     def __init__(self):
         self.background = load_image('GAME_BACKGROUND/CharacterSelect.png')

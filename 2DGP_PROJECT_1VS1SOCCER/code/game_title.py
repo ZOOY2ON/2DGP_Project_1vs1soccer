@@ -5,6 +5,7 @@ from game_select import GameSelect
 Screen_x, Screen_y = 1920, 1080
 
 
+# [game_title] 게임 타이틀 화면
 class GameTitle:
     def __init__(self):
         self.background = load_image('GAME_BACKGROUND/StartScreen.png')

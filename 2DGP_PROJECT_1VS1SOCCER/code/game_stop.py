@@ -4,6 +4,8 @@ from game_start import GameStart
 
 Screen_x, Screen_y = 1920, 1080
 
+
+# [game_stop] 게임 일시 정지 화면
 class GameStop:
     def __init__(self):
         self.background = load_image('GAME_BACKGROUND/StopScreen.png')

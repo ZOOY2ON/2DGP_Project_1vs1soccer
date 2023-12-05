@@ -5,6 +5,7 @@ from game_start import GameStart
 Screen_x, Screen_y = 1920, 1080
 
 
+# [game_character] 게임 캐릭터 구현
 class GameCharacter:
     def __init__(self):
         self.ch_01_st = {'speed': 10, 'power': 3, 'jump': 14}

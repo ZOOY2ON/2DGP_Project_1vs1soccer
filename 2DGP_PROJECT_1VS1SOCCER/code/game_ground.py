@@ -5,6 +5,8 @@ from game_time import GameTime
 
 Screen_x, Screen_y = 1920, 1080
 
+
+# [game_ground] 게임 플레이 화면
 class GameGround:
     def __init__(self):
         self.background = load_image('GAME_ROUND/BackGround.png')

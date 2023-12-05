@@ -6,6 +6,7 @@ from game_start import GameStart
 Screen_x, Screen_y = 1920, 1080
 
 
+# [game_select] 게임 방법 확인 또는 게임 시작 선택
 class GameSelect:
     def __init__(self):
         self.frame = 0

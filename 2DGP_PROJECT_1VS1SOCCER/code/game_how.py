@@ -4,6 +4,8 @@ import game_world
 
 Screen_x, Screen_y = 1920, 1080
 
+
+# [game_how] 게임 방법
 class GameHow:
     def __init__(self):
         self.background = load_image('GAME_BACKGROUND/HowToPlay.png')
