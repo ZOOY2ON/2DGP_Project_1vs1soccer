@@ -26,6 +26,8 @@ class GameCharacter:
         self.jump_01_count, self.jump_02_count = 0, 0       # ???
         self.jump_speed_01, self.jump_speed_02 = 2, 2
 
+        print("GameCharacter")
+
     def update(self):
         self.frame_01 = (self.frame_01 + 1) % 3
         self.frame_02 = (self.frame_02 + 1) % 3
