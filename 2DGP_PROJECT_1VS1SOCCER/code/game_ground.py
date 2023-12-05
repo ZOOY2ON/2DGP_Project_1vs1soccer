@@ -2,7 +2,6 @@ from pico2d import *
 import game_world
 import time
 from rulesetting import RuleSetting
-from game_character import GameCharacter
 
 Screen_x, Screen_y = 1920, 1080
 
@@ -15,9 +14,8 @@ class GameGround:
         self.count_02 = load_image('GAME_BACKGROUND/StartCount_02.png')
         self.count_01 = load_image('GAME_BACKGROUND/StartCount_01.png')
 
-        # === 운동장 & 공
+        # === 운동장
         self.ground = load_image('GAME_ROUND/Ground.png')
-        self.ball = load_image('GAME_ROUND/Ball.png')
 
         # RuleSetting 클래스의 인스턴스 생성
         rule_setting = RuleSetting()
@@ -27,6 +25,14 @@ class GameGround:
 
         # DNFBitBitv2.ttf 폰트를 로드
         self.font = load_font('Font/DNFBitBitv2.ttf', 50)
+
+        self.start_time = time.time()
+        self.show_count = True
+        self.x, self.y = Screen_x // 2, Screen_y // 2
+
+        from game_character import GameCharacter
+        character = GameCharacter()
+        game_world.add_object(character, 0)
 
 
     # Ground 클래스의 update 메서드 전체를 아래와 같이 수정
@@ -65,36 +71,3 @@ class GameGround:
             from game_stop import GameStop
             stopgame = GameStop()
             game_world.add_object(stopgame, 0)
-
-        # 키 입력 상태 업데이트
-        if e.type == SDL_KEYDOWN:
-            self.handle_key_down(e.key)
-        elif e.type == SDL_KEYUP:
-            self.handle_key_up(e.key)
-
-    def handle_key_down(self, key):
-        if key in self.key_states:
-            self.key_states[key] = True
-
-    def handle_key_up(self, key):
-        if key in self.key_states:
-            self.key_states[key] = False
-
-    def is_collide_character(self, character_x, character_y, character_image):
-        character_left = character_x - 87
-        character_right = character_x + 87
-        character_bottom = character_y - 87
-        character_top = character_y + 87
-
-        ball_left = 960 + self.ball_x - 20
-        ball_right = 960 + self.ball_x + 20
-        ball_bottom = 230 - 20
-        ball_top = 230 + 20
-
-        # 충돌 검사
-        if character_right < ball_left or character_left > ball_right or \
-           character_top < ball_bottom or character_bottom > ball_top:
-            return False  # 충돌하지 않음
-        else:
-            return True  # 충돌함
-
