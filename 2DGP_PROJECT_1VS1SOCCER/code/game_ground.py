@@ -7,18 +7,18 @@ Screen_x, Screen_y = 1920, 1080
 # [game_ground] 게임 플레이 화면
 class GameGround:
     def __init__(self):
-        self.background = load_image('GAME_ROUND/BackGround.png')
-
-        # === 운동장
-        self.ground = load_image('GAME_ROUND/Ground.png')
 
         from game_character import GameCharacter
         character = GameCharacter()
-        game_world.add_object(character, 0)
+        game_world.add_object(character, 1)
 
         from game_printtime import GamePrintTime
         gameprinttime = GamePrintTime()
-        game_world.add_object(gameprinttime, 0)
+        game_world.add_object(gameprinttime, 1)
+
+        from game_background import GameBackGround
+        gamebackground = GameBackGround()
+        game_world.add_object(gamebackground, 0)
 
     def update(self):
         pass
