@@ -14,6 +14,7 @@ def add_objects(ol, depth=0):
 
 
 def update():
+    pico2d.hide_cursor()
     for layer in objects:
         for o in layer:
             o.update()
