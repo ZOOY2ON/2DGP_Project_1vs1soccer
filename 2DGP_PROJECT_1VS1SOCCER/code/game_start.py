@@ -37,11 +37,21 @@ class GameStart:
                 from game_select import GameSelect
                 game_list = GameSelect()
                 game_world.add_object(game_list, 0)
-            elif 1745 <= x <= 1875 and 510 <= y <= 650:
-                game_world.clear()
-                from rulesetting import RuleSetting
-                rulesetting = RuleSetting()
-                game_world.add_object(rulesetting, 0)
+
+            if self.bottom_01 == 0 and self.bottom_02 == 4:
+                if 1745 <= x <= 1875 and 510 <= y <= 650:
+                    game_world.clear()
+                    from rulesetting import RuleSetting
+                    rulesetting = RuleSetting()
+                    game_world.add_object(rulesetting, 0)
+            elif self.bottom_01 == 4 and self.bottom_02 == 0:
+                if 1745 <= x <= 1875 and 510 <= y <= 650:
+                    game_world.clear()
+                    from rulesetting import RuleSetting
+                    rulesetting = RuleSetting()
+                    game_world.add_object(rulesetting, 0)
+            else:
+                pass
 
             #p1 캐릭터 이전/다음 버튼
             if 280 <= x <= 310 and 520 <= y <= 560:
