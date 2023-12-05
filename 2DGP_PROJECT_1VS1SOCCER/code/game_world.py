@@ -1,5 +1,7 @@
 from pico2d import *
 
+# 게임 월드 중간 세이브
+
 objects = [[], [], []]
 
 
