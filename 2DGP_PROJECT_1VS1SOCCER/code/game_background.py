@@ -17,7 +17,7 @@ class GameBackGround:
 
     def draw(self):
         self.background.clip_draw(0, 0, Screen_x, Screen_y, self.x, self.y)
-        self.ground.clip_draw(0, 0, 6000, 460, self.ground_x, 600, 2000, 460)
+        self.ground.clip_draw(2000, 0, 2000, 460, self.ground_x, 228, 2000, 460)
 
     def handle_events(self, e):
         pass
