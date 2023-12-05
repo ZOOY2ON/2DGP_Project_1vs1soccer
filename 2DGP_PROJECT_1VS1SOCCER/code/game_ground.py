@@ -1,7 +1,7 @@
 from pico2d import *
 import game_world
 import time
-from rulesetting import RuleSetting
+from game_time import GameTime
 
 Screen_x, Screen_y = 1920, 1080
 
@@ -18,7 +18,7 @@ class GameGround:
         self.ground = load_image('GAME_ROUND/Ground.png')
 
         # RuleSetting 클래스의 인스턴스 생성
-        rule_setting = RuleSetting()
+        rule_setting = GameTime()
         # timeset 값을 countdown_time으로 할당
         self.countdown_time = rule_setting.timeset
         print("countdown_time : ",self.countdown_time)
