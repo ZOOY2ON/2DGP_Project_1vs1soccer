@@ -31,25 +31,26 @@ class GameStart:
         if e.type == SDL_MOUSEBUTTONDOWN:  # Check if it's a mouse button down event
             x, y = e.x, e.y  # Extract mouse coordinates based on your library's event structure
 
-            #이전버튼, 다음버튼
+            #이전버튼
             if 40 <= x <= 170 and 510 <= y <= 650:
                 game_world.clear()
                 from game_select import GameSelect
                 game_list = GameSelect()
                 game_world.add_object(game_list, 0)
 
+            #다음버튼
             if self.bottom_01 == 0 and self.bottom_02 == 4:
                 if 1745 <= x <= 1875 and 510 <= y <= 650:
                     game_world.clear()
-                    from rulesetting import RuleSetting
-                    rulesetting = RuleSetting()
-                    game_world.add_object(rulesetting, 0)
+                    from game_time import GameTime
+                    gametime = GameTime()
+                    game_world.add_object(gametime, 0)
             elif self.bottom_01 == 4 and self.bottom_02 == 0:
                 if 1745 <= x <= 1875 and 510 <= y <= 650:
                     game_world.clear()
-                    from rulesetting import RuleSetting
-                    rulesetting = RuleSetting()
-                    game_world.add_object(rulesetting, 0)
+                    from game_time import GameTime
+                    gametime = GameTime()
+                    game_world.add_object(gametime, 0)
             else:
                 pass
 

@@ -3,7 +3,7 @@ import game_world
 
 Screen_x, Screen_y = 1920, 1080
 
-class RuleSetting:
+class GameTime:
     def __init__(self):
         self.background = load_image('GAME_BACKGROUND/RuleSetting.png')
         self.game_timer = load_image('GAME_RESOURCE/Timer_minute.png')
