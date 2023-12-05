@@ -56,13 +56,13 @@ class Idle:
 
     @staticmethod
     def do(boy):
-        boy.frame = (boy.frame + 1) % 8
+        boy.frame = (boy.frame + 1) % 3
         if get_time() - boy.wait_time > 2:
             boy.state_machine.handle_event(('TIME_OUT', 0))
 
     @staticmethod
     def draw(boy):
-        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
+        boy.image.clip_draw(boy.frame * 1300, boy.action * 0, 1300, 1300, boy.x, boy.y, 100, 100)
 
 
 
@@ -83,13 +83,13 @@ class Run:
 
     @staticmethod
     def do(boy):
-        boy.frame = (boy.frame + 1) % 8
+        boy.frame = (boy.frame + 1) % 3
         boy.x += boy.dir * 5
         pass
 
     @staticmethod
     def draw(boy):
-        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
+        boy.image.clip_draw(boy.frame * 1300, boy.action * 0, 1300, 1300, boy.x, boy.y, 100, 100)
 
 
 
@@ -106,12 +106,12 @@ class Sleep:
 
     @staticmethod
     def do(boy):
-        boy.frame = (boy.frame + 1) % 8
+        boy.frame = (boy.frame + 1) % 3
 
     @staticmethod
     def draw(boy):
         if boy.face_dir == -1:
-            boy.image.clip_composite_draw(boy.frame * 100, 200, 100, 100,
+            boy.image.clip_composite_draw(boy.frame * 1300, 200, 100, 100,
                                           -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
         else:
             boy.image.clip_composite_draw(boy.frame * 100, 300, 100, 100,
@@ -158,7 +158,7 @@ class Boy:
         self.action = 3
         self.dir = 0
         self.face_dir = 1
-        self.image = load_image('animation_sheet.png')
+        self.image = load_image('Bbogle.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
 

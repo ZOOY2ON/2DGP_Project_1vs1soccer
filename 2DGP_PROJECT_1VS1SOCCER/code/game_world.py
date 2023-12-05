@@ -36,7 +36,6 @@ def clear():
     objects.clear()
     objects = [[], [], []]
 
-
 def handle_events(e):
     for layer in objects:
         for o in layer:
