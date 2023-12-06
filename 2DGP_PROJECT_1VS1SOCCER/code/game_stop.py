@@ -1,6 +1,5 @@
 from pico2d import *
 import game_world
-from game_start import GameStart
 
 Screen_x, Screen_y = 1920, 1080
 
@@ -8,6 +7,11 @@ Screen_x, Screen_y = 1920, 1080
 # [game_stop] 게임 일시 정지 화면
 class GameStop:
     def __init__(self):
+
+        from game_mouse import GameMouse
+        gamemouse = GameMouse()
+        game_world.add_object(gamemouse, 2)
+
         self.background = load_image('GAME_BACKGROUND/StopScreen.png')
         self.x, self.y = Screen_x // 2, Screen_y // 2
 
