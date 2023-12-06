@@ -111,23 +111,13 @@ class GameCharacter:
             # 튕겨나가는 거리 계산
             bounce_distance = power * 5
 
+            # 공의 위치 업데이트
             self.static_ball.x = character_x + direction_x * (self.ch_r + self.static_ball.radius + bounce_distance)
+            #self.static_ball.y = character_y + direction_y * (self.ch_r + self.static_ball.radius + bounce_distance)
 
-            # 중력 효과 적용
-            if self.static_ball.is_moving:
-                self.static_ball.y += self.static_ball.speed
-                self.static_ball.speed -= 0.5  # 중력 효과
-
-                # 충돌 중에 땅에 닿으면 충돌 종료
-                if self.static_ball.y < 230:
-                    self.static_ball.y = 230
-                    self.static_ball.speed = 0
-                    self.static_ball.is_moving = False
-
-                # 공의 이동 방향 업데이트
-                self.static_ball.dx = direction_x
-                self.static_ball.dy = direction_y
-                print(self.static_ball.x, self.static_ball.y)
+            # 공의 이동 방향 업데이트
+            self.static_ball.dx = direction_x
+            #self.static_ball.dy = direction_y
 
     def draw(self):
         self.draw_character()
