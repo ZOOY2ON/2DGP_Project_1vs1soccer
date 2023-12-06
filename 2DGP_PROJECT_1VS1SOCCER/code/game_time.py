@@ -17,7 +17,7 @@ class GameTime:
 
         self.bottom = 0
         self.x, self.y = Screen_x // 2, Screen_y // 2
-        self.timeset = 120  # timeset 속성을 초기화합니다.
+        self.timeset = 60  # timeset 속성을 초기화합니다.
 
     def update(self):
         pass
@@ -46,7 +46,7 @@ class GameTime:
                 gamestart = GameStart()
                 game_world.add_object(gamestart, 0)
             elif 1745 <= x <= 1875 and 510 <= y <= 650:
-                if self.bottom == 1:
+                if self.bottom == 0:
                     game_world.clear()
 
                     from game_countdown import GameCountDown

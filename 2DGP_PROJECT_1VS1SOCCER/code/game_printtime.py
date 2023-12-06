@@ -21,12 +21,15 @@ class GamePrintTime:
         self.show_count = True
         self.x, self.y = Screen_x // 2, Screen_y // 2
 
+        self.end_check = True
+
     def update(self):
-        if self.countdown_time > 0:
+        if self.countdown_time > 0.1:
             self.countdown_time -= 0.05
-            #print(self.countdown_time)
+            print(self.countdown_time)
         else:
-            pass        # 이후 게임 결과 창으로 이동 구현
+            self.countdown_time = 0
+            self.game_end()
 
     def draw(self):
         # 카운트 다운 시간 출력
@@ -35,7 +38,11 @@ class GamePrintTime:
         minutes = int(minutes)
         seconds = int(seconds)
         time_string = f'{minutes:02}:{seconds:02}'  # 분과 초를 2자리 숫자로 표현
-        self.font.draw(self.x, self.y + 500, time_string, (255, 255, 255))
+        self.font.draw(self.x - 80, self.y + 500, time_string, (255, 255, 255))
+
+    def game_end(self):
+        if self.countdown_time == 0:
+            return (self.end_check)
 
     def handle_events(self, e):
         pass

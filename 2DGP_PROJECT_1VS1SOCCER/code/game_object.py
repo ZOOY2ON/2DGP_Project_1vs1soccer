@@ -1,6 +1,6 @@
 from pico2d import *
 import math
-from game_start import GameStart
+import game_world
 
 
 Screen_x, Screen_y = 1920, 1080
@@ -35,6 +35,10 @@ class Ball:
 class GameCharacter:
     def __init__(self):
 
+        # DNFBitBitv2.ttf 폰트를 로드
+        self.font_score = load_font('Font/DNFBitBitv2.ttf', 30)
+        self.font_winscore = load_font('Font/DNFBitBitv2.ttf', 50)
+
         # === 캐릭터
         self.character_01 = load_image('GAME_CHARACTER/CharacterSheet.png')
         self.character_02 = load_image('GAME_CHARACTER/CharacterSheet.png')
@@ -42,8 +46,8 @@ class GameCharacter:
         self.character_02_flip = load_image('GAME_CHARACTER/CharacterSheetFlip.png')
 
         # === 캐릭터 설정
-        self.ch_01_st = {'speed': 10, 'power': 3, 'jump': 13}   #5/3/3
-        self.ch_02_st = {'speed': 6, 'power': 5, 'jump': 13}    #3/5/3
+        self.ch_01_st = {'speed': 15, 'power': 3, 'jump': 13}   #5/3/3
+        self.ch_02_st = {'speed': 11, 'power': 5, 'jump': 13}    #3/5/3
 
         self.ch_x_01, self.ch_x_02 = Screen_x * 0.3, Screen_x * 0.7     # 캐릭터 초기 위치 x 좌표
         self.ch_y_01, self.ch_y_02 = 300, 300  # 캐릭터 초기 위치 y 좌표
@@ -59,27 +63,26 @@ class GameCharacter:
         # === 공
         self.ball = load_image('GAME_ROUND/Ball.png')
 
-        # === 공 설정
-        #self.ball_x, self.ball_y = Screen_x // 2, 230
-        #self.ball_r = 60 // 2
-        #self.ball_dx, self.ball_dy = 0, 0
-
         # === 공 객체 생성 (정지 상태)
         self.static_ball = Ball(Screen_x // 2, 230, 30, 10, False)   # x / y / 반지름 / 속도 / 움직임 여부
+
+        # === 점수
+        self.score_01, self.score_02 = 0, 0
+        self.goalmsg = load_image('GAME_ROUND/GoalMSG.png')
+        self.win_01 = load_image('GAME_BACKGROUND/WinScreen_01.png')
+        self.win_02 = load_image('GAME_BACKGROUND/WinScreen_02.png')
 
         # === 기본 설정
         self.x, self.y = Screen_x // 2, Screen_y // 2
         self.bottom_01, self.bottom_02 = 0, 4
         self.frame_01, self.frame_02 = 0, 0
 
-        print("GameCharacter")
-
     def update(self):
         self.frame_01 = (self.frame_01 + 1) % 3
         self.frame_02 = (self.frame_02 + 1) % 3
 
-        self.update_character()
         self.check_collision()
+        self.update_character()
 
     def check_collision(self):
         # 공과 캐릭터 1의 충돌 검사
@@ -88,7 +91,7 @@ class GameCharacter:
             # 충돌 시 튕김
             self.bounce_ball(self.ch_01_st['power'], self.ch_x_01, self.ch_y_01)
             self.static_ball.is_moving = True
-            print("충돌 발생 : ball-01")
+            #print("충돌 발생 : ball-01")
 
         # 공과 캐릭터 2의 충돌 검사
         distance_02 = math.sqrt((self.ch_x_02 - self.static_ball.x)**2 + (self.ch_y_02 - self.static_ball.y)**2)
@@ -96,7 +99,7 @@ class GameCharacter:
             # 충돌 시 튕김
             self.bounce_ball(self.ch_02_st['power'], self.ch_x_02, self.ch_y_02)
             self.static_ball.is_moving = True
-            print("충돌 발생 : ball-02")
+            #print("충돌 발생 : ball-02")
 
     def bounce_ball(self, power, character_x, character_y):
         # 충돌 시 튕김 로직
@@ -112,21 +115,59 @@ class GameCharacter:
             bounce_distance = power * 5
 
             # 공의 위치 업데이트
-            self.static_ball.x = character_x + direction_x * (self.ch_r + self.static_ball.radius + bounce_distance)
-            #self.static_ball.y = character_y + direction_y * (self.ch_r + self.static_ball.radius + bounce_distance)
+            new_x = character_x + direction_x * (self.ch_r + self.static_ball.radius + bounce_distance)
+            self.static_ball.x = clamp(95, new_x, 1825)
+
+            # self.static_ball.y = character_y + direction_y * (self.ch_r + self.static_ball.radius + bounce_distance)
 
             # 공의 이동 방향 업데이트
             self.static_ball.dx = direction_x
-            #self.static_ball.dy = direction_y
+            # self.static_ball.dy = direction_y
+
+            self.goal_check()
+
+    def clamp(min_value, value, max_value):
+        return max(min_value, min(value, max_value))
+
+    def goal_check(self):
+        if self.static_ball.x < 290:
+            self.score_02 += 1
+            self.static_ball.x = Screen_x // 2
+            self.ch_x_01, self.ch_x_02 = Screen_x * 0.3, Screen_x * 0.7
+        elif self.static_ball.x > 1630:
+            self.score_01 += 1
+            self.static_ball.x = Screen_x // 2
+            self.ch_x_01, self.ch_x_02 = Screen_x * 0.3, Screen_x * 0.7
+
+        #print("01 : ", self.score_01, "02 : ", self.score_02)
 
     def draw(self):
         self.draw_character()
-        #self.ball.clip_draw(0, 0, 41, 41, self.ball_x,self.ball_y, 60, 60)
         # === 정지 상태의 공 그리기
         self.static_ball.draw()
 
+        time_string = f'{self.score_01:02}:{self.score_02:02}'  # 분과 초를 2자리 숫자로 표현
+        self.font_score.draw(self.x - 50, self.y + 400, time_string, (255, 255, 255))
+
+        from game_printtime import GamePrintTime
+        gameprinttime = GamePrintTime()
+        gameend = gameprinttime.game_end()
+        if gameend == True:
+            self.draw_end()
+
+
     def handle_events(self, e):
         self.move_character(e)
+
+        from game_printtime import GamePrintTime
+        gameprinttime = GamePrintTime()
+        gameend = gameprinttime.game_end()
+        if gameend == True:
+            if e.type == SDL_MOUSEBUTTONDOWN:
+                game_world.clear()
+                from game_select import GameSelect  # Import inside the method
+                game_list = GameSelect()
+                game_world.add_object(game_list, 0)
 
     # === 캐릭터
     def draw_character(self):
@@ -155,6 +196,21 @@ class GameCharacter:
                 self.character_02_flip.clip_draw(174, self.bottom_02 * 174, 174, 174, self.ch_x_02, self.ch_y_02)
             else:
                 self.character_02.clip_draw(174, self.bottom_02 * 174, 174, 174, self.ch_x_02, self.ch_y_02)
+
+    def draw_end(self):
+        if self.score_01 > self.score_02:
+            self.win_01.clip_draw(0, 0, Screen_x, Screen_y, self.x, self.y)
+        elif self.score_01 < self.score_02:
+            self.win_02.clip_draw(0, 0, Screen_x, Screen_y, self.x, self.y)
+        else:
+            game_world.clear()
+            from game_select import GameSelect  # Import inside the method
+            game_list = GameSelect()
+            game_world.add_object(game_list, 0)
+
+        self.font_winscore.draw(805, 865, self.score_01, (0, 0, 0))
+        self.font_winscore.draw(1115, 865, self.score_02, (0, 0, 0))
+
 
     def update_character(self):
         # 캐릭터 1 이동 및 점프 로직
