@@ -154,16 +154,6 @@ class GameCharacter:
     def handle_events(self, e):
         self.move_character(e)
 
-        from game_printtime import GamePrintTime
-        gameprinttime = GamePrintTime()
-        gameend = gameprinttime.game_end()
-        if gameend == True:
-            if e.type == SDL_MOUSEBUTTONDOWN:
-                game_world.clear()
-                from game_select import GameSelect  # Import inside the method
-                game_list = GameSelect()
-                game_world.add_object(game_list, 0)
-
     # === 캐릭터
     def draw_character(self):
         # 캐릭터 1 그리기
@@ -191,22 +181,6 @@ class GameCharacter:
                 self.character_02_flip.clip_draw(174, self.bottom_02 * 174, 174, 174, self.ch_x_02, self.ch_y_02)
             else:
                 self.character_02.clip_draw(174, self.bottom_02 * 174, 174, 174, self.ch_x_02, self.ch_y_02)
-
-    def draw_end(self):
-        if self.score_01 > self.score_02:
-            self.win_01.clip_draw(0, 0, Screen_x, Screen_y, self.x, self.y)
-            winscore = f'{self.score_01:02}'
-            self.font_winscore.draw(805, 865, winscore, (0, 0, 0))
-        elif self.score_01 < self.score_02:
-            self.win_02.clip_draw(0, 0, Screen_x, Screen_y, self.x, self.y)
-            winscore = f'{self.score_02:02}'
-            self.font_winscore.draw(805, 865, winscore, (0, 0, 0))
-        else:
-            game_world.clear()
-            from game_select import GameSelect  # Import inside the method
-            game_list = GameSelect()
-            game_world.add_object(game_list, 0)
-
 
     def update_character(self):
         # 캐릭터 1 이동 및 점프 로직

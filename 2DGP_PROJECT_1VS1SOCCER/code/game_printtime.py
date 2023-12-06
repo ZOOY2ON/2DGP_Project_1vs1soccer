@@ -9,6 +9,8 @@ Screen_x, Screen_y = 1920, 1080
 
 class GamePrintTime:
     def __init__(self):
+        self.end_game = load_image('GAME_ROUND/GameEndMSG.png')
+
         # RuleSetting 클래스의 인스턴스 생성
         rule_setting = GameTime()
         # timeset 값을 countdown_time으로 할당
@@ -41,9 +43,7 @@ class GamePrintTime:
         self.font.draw(self.x - 80, self.y + 500, time_string, (255, 255, 255))
 
         if self.end_check == True:
-            self.font_end = load_font('Font/DNFBitBitv2.ttf', 200)
-            end_msg = f'게임 종료'  # 분과 초를 2자리 숫자로 표현
-            self.font.draw(self.x - 100, self.y, end_msg, (255, 0, 0))
+            self.end_game.clip_draw(0, 0, Screen_x, Screen_y, self.x, self.y)
 
     def game_end(self):
         self.end_check = True

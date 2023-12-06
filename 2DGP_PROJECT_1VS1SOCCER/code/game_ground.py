@@ -12,9 +12,9 @@ class GameGround:
         gamepost = GamePost()
         game_world.add_object(gamepost, 2)
 
-        from game_mouse import GameMouse
-        gamemouse = GameMouse()
-        game_world.add_object(gamemouse, 2)
+        #from game_mouse import GameMouse
+        #gamemouse = GameMouse()
+        #game_world.add_object(gamemouse, 2)
 
         from game_object import GameCharacter
         character = GameCharacter()
