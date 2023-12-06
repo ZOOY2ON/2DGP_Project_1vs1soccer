@@ -1,6 +1,9 @@
 from pico2d import *
 import game_world
 from game_select import GameSelect
+from game_start import GameStart
+from game_ground import GameGround
+from game_time import GameTime
 
 Screen_x, Screen_y = 1920, 1080
 
@@ -27,3 +30,19 @@ class GameTitle:
             game_world.clear()
             game_list = GameSelect()
             game_world.add_object(game_list, 0)
+
+        if e.type == SDL_KEYDOWN:
+            if e.key == SDLK_1:
+                game_world.clear()
+                gamestart = GameStart()
+                game_world.add_object(gamestart, 0)
+
+            elif e.key == SDLK_2:
+                game_world.clear()
+                gametime = GameTime()
+                game_world.add_object(gametime, 0)
+
+            elif e.key == SDLK_3:
+                game_world.clear()
+                gameground = GameGround()
+                game_world.add_object(gameground, 0)
