@@ -8,7 +8,6 @@ from game_select import GameSelect
 Screen_x, Screen_y = 1920, 1080
 GAME_NUM = 0
 
-
 def handle_events():
     global running
 

@@ -83,6 +83,7 @@ class GameCharacter:
 
         self.check_collision()
         self.update_character()
+        self.goal_check()
 
     def check_collision(self):
         # 공과 캐릭터 1의 충돌 검사
@@ -142,19 +143,13 @@ class GameCharacter:
         #print("01 : ", self.score_01, "02 : ", self.score_02)
 
     def draw(self):
+
         self.draw_character()
         # === 정지 상태의 공 그리기
         self.static_ball.draw()
 
-        time_string = f'{self.score_01:02}:{self.score_02:02}'  # 분과 초를 2자리 숫자로 표현
+        time_string = f'{self.score_01:02}:{self.score_02:02}'
         self.font_score.draw(self.x - 50, self.y + 400, time_string, (255, 255, 255))
-
-        from game_printtime import GamePrintTime
-        gameprinttime = GamePrintTime()
-        gameend = gameprinttime.game_end()
-        if gameend == True:
-            self.draw_end()
-
 
     def handle_events(self, e):
         self.move_character(e)
@@ -200,16 +195,17 @@ class GameCharacter:
     def draw_end(self):
         if self.score_01 > self.score_02:
             self.win_01.clip_draw(0, 0, Screen_x, Screen_y, self.x, self.y)
+            winscore = f'{self.score_01:02}'
+            self.font_winscore.draw(805, 865, winscore, (0, 0, 0))
         elif self.score_01 < self.score_02:
             self.win_02.clip_draw(0, 0, Screen_x, Screen_y, self.x, self.y)
+            winscore = f'{self.score_02:02}'
+            self.font_winscore.draw(805, 865, winscore, (0, 0, 0))
         else:
             game_world.clear()
             from game_select import GameSelect  # Import inside the method
             game_list = GameSelect()
             game_world.add_object(game_list, 0)
-
-        self.font_winscore.draw(805, 865, self.score_01, (0, 0, 0))
-        self.font_winscore.draw(1115, 865, self.score_02, (0, 0, 0))
 
 
     def update_character(self):

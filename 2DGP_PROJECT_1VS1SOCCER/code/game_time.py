@@ -17,7 +17,7 @@ class GameTime:
 
         self.bottom = 0
         self.x, self.y = Screen_x // 2, Screen_y // 2
-        self.timeset = 60  # timeset 속성을 초기화합니다.
+        self.timeset = 20  # timeset 속성을 초기화합니다.
 
     def update(self):
         pass

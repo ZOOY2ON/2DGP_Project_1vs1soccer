@@ -21,7 +21,7 @@ class GamePrintTime:
         self.show_count = True
         self.x, self.y = Screen_x // 2, Screen_y // 2
 
-        self.end_check = True
+        self.end_check = False
 
     def update(self):
         if self.countdown_time > 0.1:
@@ -40,9 +40,13 @@ class GamePrintTime:
         time_string = f'{minutes:02}:{seconds:02}'  # 분과 초를 2자리 숫자로 표현
         self.font.draw(self.x - 80, self.y + 500, time_string, (255, 255, 255))
 
+        if self.end_check == True:
+            self.font_end = load_font('Font/DNFBitBitv2.ttf', 200)
+            end_msg = f'게임 종료'  # 분과 초를 2자리 숫자로 표현
+            self.font.draw(self.x - 100, self.y, end_msg, (255, 0, 0))
+
     def game_end(self):
-        if self.countdown_time == 0:
-            return (self.end_check)
+        self.end_check = True
 
     def handle_events(self, e):
         pass
