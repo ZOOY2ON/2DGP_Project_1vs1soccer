@@ -23,8 +23,8 @@ class GamePrintTime:
 
     def update(self):
         if self.countdown_time > 0:
-            self.countdown_time -= 0
-            print(self.countdown_time)
+            self.countdown_time -= 0.05
+            #print(self.countdown_time)
         else:
             pass        # 이후 게임 결과 창으로 이동 구현
 
@@ -32,6 +32,8 @@ class GamePrintTime:
         # 카운트 다운 시간 출력
         minutes = self.countdown_time // 60
         seconds = self.countdown_time % 60
+        minutes = int(minutes)
+        seconds = int(seconds)
         time_string = f'{minutes:02}:{seconds:02}'  # 분과 초를 2자리 숫자로 표현
         self.font.draw(self.x, self.y + 500, time_string, (255, 255, 255))
 
